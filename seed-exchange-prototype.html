@@ -53,6 +53,7 @@
             position: absolute;
             bottom: 0;
             width: 100%;
+            z-index: 10;
         }
         .tab-item {
             flex: 1;
@@ -83,6 +84,15 @@
             font-weight: bold;
             text-align: center;
         }
+        .content {
+            height: calc(100% - 118px);
+            overflow-y: auto;
+            padding-bottom: 50px; /* 为底部导航腾出空间 */
+        }
+        .fixed.bottom-0 {
+            bottom: 50px; /* 确保不会被底部导航栏遮挡 */
+            z-index: 5;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -105,7 +115,7 @@
                     </div>
                     <div>农民种子交换所</div>
                 </div>
-                <div class="content p-3 overflow-auto" style="height: calc(100% - 118px);">
+                <div class="content p-3 overflow-auto">
                     <!-- 搜索框 -->
                     <div class="bg-gray-100 rounded-full flex items-center p-2 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -307,7 +317,7 @@
                     </div>
                     <div>种子详情</div>
                 </div>
-                <div class="content overflow-auto" style="height: calc(100% - 118px);">
+                <div class="content overflow-auto">
                     <!-- 种子图片轮播 -->
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1573594583173-5c3c7ceaacc7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHRvbWF0byUyMHNlZWRzfGVufDB8fDB8fHww" class="w-full h-64 object-cover" alt="番茄种子">
@@ -369,8 +379,8 @@
                         </div>
                     </div>
                     
-                    <!-- 底部操作栏 -->
-                    <div class="fixed bottom-0 left-0 right-0 bg-white p-3 flex space-x-2 border-t border-gray-200">
+                    <!-- 底部操作栏 - 从fixed改为普通定位 -->
+                    <div class="bg-white p-3 flex space-x-2 border-t border-gray-200 mb-16">
                         <button class="flex-1 bg-white border border-green-600 text-green-600 py-2 rounded-full text-sm font-medium">收藏</button>
                         <button class="flex-1 bg-white border border-green-600 text-green-600 py-2 rounded-full text-sm font-medium">联系农户</button>
                         <button class="flex-1 bg-green-600 text-white py-2 rounded-full text-sm font-medium">申请交换</button>
@@ -394,7 +404,7 @@
                     </div>
                     <div>交换市场</div>
                 </div>
-                <div class="content overflow-auto" style="height: calc(100% - 118px);">
+                <div class="content overflow-auto">
                     <!-- 搜索和筛选 -->
                     <div class="p-3">
                         <div class="bg-gray-100 rounded-full flex items-center p-2 mb-3">
@@ -610,100 +620,9 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label class="block text-sm font-medium mb-1">种子分类 <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium mb-1" for="seed-category">种子分类 <span class="text-red-500">*</span></label>
                             <div class="relative">
-                                <select class="w-full p-2 border border-gray-300 rounded text-sm appearance-none">
-                                    <option>请选择种子分类</option>
-                                    <option>蔬菜种子</option>
-                                    <option>水果种子</option>
-                                    <option>粮食作物</option>
-                                    <option>花卉种子</option>
-                                    <option>药用植物</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="block text-sm font-medium mb-1">种子数量 <span class="text-red-500">*</span></label>
-                            <input type="text" placeholder="请输入种子数量" class="w-full p-2 border border-gray-300 rounded text-sm">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="block text-sm font-medium mb-1">种植季节</label>
-                            <div class="flex flex-wrap gap-2">
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="mr-1">
-                                    <span class="text-sm">春季</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="mr-1">
-                                    <span class="text-sm">夏季</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="mr-1">
-                                    <span class="text-sm">秋季</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="mr-1">
-                                    <span class="text-sm">冬季</span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="block text-sm font-medium mb-1">生长周期</label>
-                            <input type="text" placeholder="例如：约90天" class="w-full p-2 border border-gray-300 rounded text-sm">
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="block text-sm font-medium mb-1">种子特性</label>
-                            <div class="flex flex-wrap gap-2">
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="mr-1">
-                                    <span class="text-sm">有机</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="mr-1">
-                                    <span class="text-sm">非转基因</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="mr-1">
-                                    <span class="text-sm">传统品种</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="checkbox" class="mr-1">
-                                    <span class="text-sm">稀有品种</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 详细描述 -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium mb-1">种子描述 <span class="text-red-500">*</span></label>
-                        <textarea placeholder="请详细描述种子的特点、来源、种植经验等信息" class="w-full p-2 border border-gray-300 rounded text-sm h-24"></textarea>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium mb-1">种植建议</label>
-                        <textarea placeholder="请分享种植这种种子的建议和经验" class="w-full p-2 border border-gray-300 rounded text-sm h-24"></textarea>
-                    </div>
-                    
-                    <!-- 交换意向 -->
-                    <div class="mb-6">
-                        <label class="block text-sm font-medium mb-1">交换意向 <span class="text-red-500">*</span></label>
-                        <div class="flex flex-wrap gap-2 mb-2">
-                            <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded flex items-center">
-                                黄瓜种子
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18
-                                <div class="relative">
-                                <select class="w-full p-2 border border-gray-300 rounded text-sm appearance-none">
+                                <select id="seed-category" class="w-full p-2 border border-gray-300 rounded text-sm appearance-none" aria-label="种子分类">
                                     <option>请选择种子分类</option>
                                     <option>蔬菜种子</option>
                                     <option>水果种子</option>
@@ -804,7 +723,7 @@
                         </div>
                         <div class="flex items-center">
                             <input type="text" placeholder="添加交换意向" class="flex-1 p-2 border border-gray-300 rounded-l text-sm">
-                            <button class="bg-green-600 text-white p-2 rounded-r">
+                            <button class="bg-green-600 text-white p-2 rounded-r" aria-label="添加">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                 </svg>
@@ -813,7 +732,7 @@
                     </div>
                     
                     <!-- 提交按钮 -->
-                    <div class="fixed bottom-0 left-0 right-0 bg-white p-3 border-t border-gray-200">
+                    <div class="mb-16">
                         <button class="w-full bg-green-600 text-white py-2 rounded-full text-sm font-medium">发布种子</button>
                     </div>
                 </div>
@@ -860,7 +779,7 @@
                 <div class="wechat-header">
                     <div>个人中心</div>
                 </div>
-                <div class="content overflow-auto" style="height: calc(100% - 118px);">
+                <div class="content overflow-auto">
                     <!-- 用户信息 -->
                     <div class="bg-green-600 p-4">
                         <div class="flex items-center">
